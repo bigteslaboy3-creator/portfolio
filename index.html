@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bigboy Chuks — Frontend & Web Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- SEO -->
+  <meta name="description" content="Bigboy Chuks — Frontend & Web Developer creating fast, modern, responsive websites. See projects, services, skills, and contact details." />
+  <meta name="keywords" content="Bigboy, Chuks, Big-boy, Frontend Developer, Web Developer, Portfolio, Nigeria" />
+  <meta name="author" content="Bigboy Chukwuemeka" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bigboy Chuks — Developer Portfolio" />
+  <meta property="og:description" content="Modern, responsive web experiences. Let's build something great." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="IMG-20250521-WA0001~3.jpg" />
+  <meta property="og:url" content="https://your-domain.com" />
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- ScrollReveal + Typed -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <!-- Styles -->
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#11161d; --text:#e8eef8; --muted:#a7b3c5; --primary:#4f8cff; --accent:#22d3ee;
+      --border:rgba(255,255,255,0.08); --shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    :root.light{
+      --bg:#f7f9fc; --card:#ffffff; --text:#0b1727; --muted:#4b5563; --primary:#275efe; --accent:#06b6d4;
+      --border:rgba(0,0,0,0.08); --shadow:0 10px 30px rgba(2,6,23,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(79,140,255,.20), transparent 60%) no-repeat,
+                  radial-gradient(800px 600px at -10% 20%, rgba(34,211,238,.16), transparent 50%) no-repeat,
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Header */
+    .header{
+      position:fixed; inset-inline:0; top:0; z-index:1000;
+      background:rgba(17,22,29,.6); backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      max-width:1100px; margin:auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between;
+    }
+    .logo{font-weight:800;font-size:1.25rem;letter-spacing:.5px}
+    .logo span{color:var(--primary)}
+    .navbar{display:flex;gap:18px; align-items:center}
+    .navbar a{padding:8px 10px; border-radius:10px; color:var(--muted)}
+    .navbar a.active,.navbar a:hover{color:var(--text); background:rgba(255,255,255,0.06)}
+    #menu-icon{display:none;font-size:1.6rem;cursor:pointer}
+    .theme-toggle{margin-left:8px; border:1px solid var(--border); background:transparent; color:var(--text);
+      width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer}
+
+    /* Sections */
+    section{max-width:1100px; margin:0 auto; padding:100px 18px}
+    .grid{display:grid; gap:28px}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:22px; box-shadow:var(--shadow)}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:14px; font-weight:600;
+      background:linear-gradient(135deg, var(--primary), var(--accent)); color:white; border:0; cursor:pointer; box-shadow:var(--shadow);
+    }
+    .btn.ghost{background:transparent; border:1px solid var(--border); color:var(--text)}
+    .heading{font-size:2rem; margin:0 0 22px}
+    .heading span{color:var(--primary)}
+
+    /* Home */
+    .home{display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:center; padding-top:140px}
+    .home .sub{color:var(--muted);margin:6px 0 10px}
+    .socials{display:flex; gap:10px; margin:16px 0}
+    .socials a{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center}
+    .home-img{aspect-ratio:1/1; border-radius:26px; overflow:hidden; border:1px solid var(--border); background: #22d3ee33}
+    .home-img img{object-fit:cover; height:100%; filter:saturate(1.05) contrast(1.02)}
+
+    /* About */
+    .about .content{display:grid; grid-template-columns: .9fr 1.1fr; gap:26px; align-items:center}
+    .about .about-img{border-radius:22px; overflow:hidden; border:1px solid var(--border)}
+
+    /* Services */
+    .services .cards{grid-template-columns:repeat(3,1fr)}
+    .service{padding:20px}
+    .service i{font-size:1.8rem; color:var(--primary)}
+    .service h3{margin:8px 0}
+
+    /* Skills */
+    .skills .skill{padding:18px}
+    .skills .bar{
+      height:12px; background:rgba(255,255,255,.08); border:1px solid var(--border);
+      border-radius:999px; overflow:hidden; margin-top:8px
+    }
+    .skills .fill{
+      height:100%; width:0%;
+      background:linear-gradient(90deg, var(--primary), var(--accent));
+      transition:width 1.4s ease;
+    }
+    .skills .grid{grid-template-columns:repeat(2,1fr)}
+
+    /* Stats */
+    .stats .cards{grid-template-columns:repeat(4,1fr)}
+    .stat{padding:24px; text-align:center}
+    .stat h3{font-size:2rem;margin:0}
+    .stat p{margin:6px 0 0;color:var(--muted)}
+
+    /* Portfolio */
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+    .filters button{
+      padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer
+    }
+    .filters button.active{background:rgba(255,255,255,.06)}
+    .portfolio .grid{grid-template-columns:repeat(3,1fr)}
+    .p-card{position:relative; overflow:hidden}
+    .p-card img{transition:transform .5s ease}
+    .p-card:hover img{transform:scale(1.06)}
+    .p-overlay{
+      position:absolute; inset:0; display:grid; place-items:center; padding:16px;
+      background:linear-gradient(to top, rgba(0,0,0,.6), transparent 40%);
+      color:#fff; opacity:0; transition:opacity .35s ease
+    }
+    .p-card:hover .p-overlay{opacity:1}
+
+    /* Contact */
+    .contact form .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .input, textarea{
+      width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--border);
+      background:var(--card); color:var(--text)
+    }
+    textarea{min-height:160px; resize:vertical}
+
+    /* Footer */
+    .footer{padding:36px 18px; text-align:center; color:var(--muted)}
+    .to-top{
+      position:fixed; right:18px; bottom:18px; width:44px; height:44px; border-radius:14px;
+      border:1px solid var(--border); display:grid; place-items:center; background:var(--card); cursor:pointer; opacity:.9
+    }
+
+    /* AI Chat Icon */
+    .ai-chat-icon {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    .ai-chat-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(79, 140, 255, 0.4);
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(79, 140, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(79, 140, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(79, 140, 255, 0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .home{grid-template-columns:1fr; padding-top:120px}
+      .about .content{grid-template-columns:1fr}
+      .services .cards{grid-template-columns:1fr 1fr}
+      .skills .grid{grid-template-columns:1fr}
+      .stats .cards{grid-template-columns:1fr 1fr}
+      .portfolio .grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:680px){
+      #menu-icon{display:block}
+      .navbar{position:absolute; top:64px; right:18px; left:18px; flex-direction:column; background:var(--card);
+        border:1px solid var(--border); border-radius:16px; padding:10px; display:none}
+      .navbar.open{display:flex}
+      .services .cards{grid-template-columns:1fr}
+      .stats .cards{grid-template-columns:1fr 1fr}
+      .portfolio .grid{grid-template-columns:1fr}
+      
+      /* Adjust AI chat icon for mobile */
+      .ai-chat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 80px;
+        left: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- AI Chat Icon -->
+  <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" target="_blank" class="ai-chat-icon" aria-label="Chat with my AI assistant">
+    <i class='bx bx-bot'></i>
+  </a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav">
+      <a href="#home" class="logo">Portfol<span>io</span></a>
+
+      <nav class="navbar" id="navbar">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#skills">Skills</a>
+        <a href="see-my-work.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class='bx bx-moon' id="themeIcon"></i>
+        </button>
+        <i class="bx bx-menu" id="menu-icon" aria-label="Open menu"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Home -->
+  <section class="home" id="home">
+    <div>
+      <p class="sub"><span>H</span>ello, it's Me</p>
+      <h1 style="margin:4px 0 8px; font-size:clamp(2rem,5vw,3rem);">Big-boy Chuks</h1>
+      <h3 style="margin:0 0 10px;">And I'm a <span class="multiple-text" style="color:var(--primary)"></span></h3>
+      <p class="sub">Welcome! Explore my web design portfolio showcasing creativity, innovation, and user-centric solutions. Let's collaborate!</p>
+
+      <div class="socials">
+        <a href="https://www.facebook.com/share/1F3zFn7AYJ/"><i class='bx bxl-facebook'></i></a>
+        <a href="https://x.com/bigboy_code/photo"><i class='bx bxl-twitter'></i></a>
+        <a href="https://www.instagram.com/bigteslaboy?igsh=MXFleDdrbTg5cWpweg=="><i class='bx bxl-instagram-alt'></i></a>
+        <a href="https://ng.linkedin.com/in/big-boy-019464300"><i class='bx bxl-linkedin'></i></a>
+        <a href=" " class="text-gray-400 hover:text-white bg-gray-700 hover:bg-blue-600 rounded-full p-3 transition-all duration-300"><i class='bx bxl-github text-2xl'></i></a>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="btn" href="Bigboy_Chukwuemeka_Resume_Final (1) (1).pdf" download>
+          <i class='bx bx-download'></i> Download CV
+        </a>
+        <a class="btn ghost" href="contact.html"><i class='bx bx-message-rounded-dots'></i> Hire Me</a>
+      </div>
+    </div>
+
+    <div class="home-img card">
+      <span></span>
+      <img src="neec.nonso-190420.jpg" alt="Bigboy portrait" />
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <h2 class="heading">About <span>Me</span></h2>
+    <div class="content">
+      <div class="about-img card">
+        <img src="Screenshot 2025-09-12 063154.png" alt="Working at desk" />
+      </div>
+      <div>
+        <h3>Frontend Developer!</h3>
+        <p>As a frontend developer with a passion for clean, responsive design, I specialize in bringing creative visions to life through code. With a keen eye for detail and a love for innovation, I build seamless user experiences on the web.</p>
+        <a href="see-my-work.html" class="btn"><i class='bx bx-show'></i> See My Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <h2 class="heading">My <span>Services</span></h2>
+    <div class="grid cards">
+      <article class="service card">
+        <i class='bx bx-code-alt'></i>
+        <h3>Web Development</h3>
+        <p>I build responsive, fast websites focused on clean UI and smooth UX across devices.</p>
+        <a href="contact.html" class="btn ghost">Start a Project</a>
+      </article>
+      <article class="service card">
+        <i class='bx bx-mail-send'></i>
+        <h3>Contact Form Integration</h3>
+        <p>Seamlessly integrate forms that capture user inputs and deliver
+             them directly to your email. Includes validation, spam protection, and
+              smooth submission handling for a professional experience.</p>
+        <a href="contact.html" class="btn ghost">Discuss Scope</a>
+      </article>
+      <article class="service card">
+        <i class='bx bxs-microchip'></i>
+        <h3>Computer Engineering</h3>
+        <p>Optimized systems that align hardware and software for reliable performance.</p>
+        <a href="contact.html" class="btn ghost">Get a Quote</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills" id="skills">
+    <h2 class="heading">My <span>Skills</span></h2>
+    <div class="grid">
+      <div class="card skill">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>HTML</strong><span class="sub">95%</span>
+        </div>
+        <div class="bar"><div class="fill" data-target="95"></div></div>
+      </div>
+      <div class="card skill">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>CSS</strong><span class="sub">90%</span>
+        </div>
+        <div class="bar"><div class="fill" data-target="90"></div></div>
+      </div>
+      <div class="card skill">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>JavaScript</strong><span class="sub">80%</span>
+        </div>
+        <div class="bar"><div class="fill" data-target="80"></div></div>
+      </div>
+      <div class="card skill">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>PHP / Backend</strong><span class="sub">70%</span>
+        </div>
+        <div class="bar"><div class="fill" data-target="70"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats" id="stats">
+    <h2 class="heading">By the <span>Numbers</span></h2>
+    <div class="grid cards">
+      <div class="card stat">
+        <h3 class="counter" data-to="25">6</h3>
+        <p>Projects Completed</p>
+      </div>
+      <div class="card stat">
+        <h3 class="counter" data-to="12">4</h3>
+        <p>Happy Clients</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Bigboy Chuks. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#home" class="to-top" aria-label="Back to top">
+    <i class='bx bx-chevron-up'></i>
+  </a>
+
+  <script>
+    // Typed.js initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      const typed = new Typed('.multiple-text', {
+        strings: ['Frontend Developer', 'Web Designer', 'Computer Engineer'],
+        typeSpeed: 100,
+        backSpeed: 100,
+        backDelay: 1000,
+        loop: true
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const body = document.body;
+
+      // Check for saved theme preference or respect OS preference
+      const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      
+      if (savedTheme === 'light') {
+        body.classList.add('light');
+        themeIcon.classList.replace('bx-moon', 'bx-sun');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light');
+        if (body.classList.contains('light')) {
+          themeIcon.classList.replace('bx-moon', 'bx-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          themeIcon.classList.replace('bx-sun', 'bx-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+
+      // Mobile menu toggle
+      const menuIcon = document.getElementById('menu-icon');
+      const navbar = document.getElementById('navbar');
+      
+      menuIcon.addEventListener('click', () => {
+        navbar.classList.toggle('open');
+      });
+
+      // Close mobile menu when clicking on a link
+      const navLinks = document.querySelectorAll('.navbar a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navbar.classList.remove('open');
+        });
+      });
+
+      // Animate skill bars on scroll
+      const skillBars = document.querySelectorAll('.fill');
+      
+      function animateSkillBars() {
+        skillBars.forEach(bar => {
+          const targetWidth = bar.getAttribute('data-target') + '%';
+          bar.style.width = targetWidth;
+        });
+      }
+
+      // Use Intersection Observer to trigger animation when skills section is in view
+      const skillsSection = document.getElementById('skills');
+      
+      if (skillsSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateSkillBars();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+        
+        observer.observe(skillsSection);
+      } else {
+        // Fallback if IntersectionObserver isn't supported
+        animateSkillBars();
+      }
+
+      // ScrollReveal animations
+      ScrollReveal({ 
+        distance: '80px',
+        duration: 2000,
+        delay: 200
+      });
+
+      ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
+      ScrollReveal().reveal('.home-img, .services .card, .portfolio .card, .contact form', { origin: 'bottom' });
+      ScrollReveal().reveal('.home-content h1, .about-img', { origin: 'left' });
+      ScrollReveal().reveal('.home-content p, .about-content', { origin: 'right' });
+    });
+  </script>
+</body>
+</html>
