@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me - Bigboy</title>
+  <!-- Tailwind CSS for modern styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Boxicons for icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Google Fonts for a clean, modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- icon link -->
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    /* Custom CSS variables and base styles */
+    :root {
+      --bg-color: #0b0f14;
+      --second-bg-color: #11161d;
+      --text-color: #e8eef8;
+      --main-color: #4f8cff;
+      --muted-color: #a7b3c5;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Style for form input focus */
+    .form-input:focus {
+        box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.5);
+        border-color: var(--main-color);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+  <!-- Header Section -->
+  <header class="bg-gray-900/80 backdrop-blur-md shadow-lg fixed w-full z-20 top-0 start-0 border-b border-gray-700">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="index.html" class="text-2xl font-bold">Portfol<span class="text-blue-500">io</span></a>
+      <nav class="hidden md:flex items-center space-x-2">
+        <a href="index.html#home" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Home</a>
+        <a href="index.html#about" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">About</a>
+        <a href="index.html#services" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Services</a>
+        <a href="see-my-work.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Portfolio</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700 text-white transition-colors">Contact</a>
+      </nav>
+      <!-- Mobile menu button can be added here if needed -->
+       
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- Contact Section -->
+    <section class="contact py-28 px-4 sm:px-6 lg:px-8" id="contact">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-16">Contact <span class="text-blue-500">Me</span></h2>
+        
+        <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 md:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3 class="text-2xl font-bold mb-6">Send a Message</h3>
+                    <form action="https://formspree.io/f/xnnbrykj" method="POST">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="full-name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                                <input type="text" name="full-name" id="full-name" placeholder="John Doe" required class="form-input w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                                <input type="email" name="email" id="email" placeholder="your.email@example.com" required class="form-input w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                            <input type="text" name="subject" id="subject" placeholder="Project Inquiry" required class="form-input w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
+                        </div>
+                        <div class="mt-6">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea name="message" id="message" rows="5" placeholder="Hi, I'd like to talk about..." required class="form-input w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-sm transition duration-300 focus:outline-none"></textarea>
+                        </div>
+                        <div class="mt-8 text-right">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+                    <p class="text-gray-400 mb-8">
+                        Have a project in mind or just want to say hello? Feel free to reach out. I'm always open to discussing new ideas and opportunities.
+                    </p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center">
+                            <div class="bg-gray-700 rounded-full p-3 mr-4">
+                               <i class='bx bxs-envelope text-blue-400 text-xl'></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Email</h4>
+                                <a href="mailto:bigteslaboy@gmail.com" class="text-gray-400 hover:text-blue-400 transition-colors">bigteslaboy@gmail.com</a>
+                            </div>
+                        </li>
+                         <li class="flex items-center">
+                            <div class="bg-gray-700 rounded-full p-3 mr-4">
+                                <i class='bx bxs-phone text-blue-400 text-xl'></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Phone</h4>
+                                <a href="tel:+2349162812387" class="text-gray-400 hover:text-blue-400 transition-colors">+234 916 281 2387</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-10">
+                        <h4 class="font-semibold mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/bigteslaboy3-creator" class="text-gray-400 hover:text-white bg-gray-700 hover:bg-blue-600 rounded-full p-3 transition-all duration-300"><i class='bx bxl-github text-2xl'></i></a>
+                            <a href="https://ng.linkedin.com/in/big-boy-019464300" class="text-gray-400 hover:text-white bg-gray-700 hover:bg-blue-600 rounded-full p-3 transition-all duration-300"><i class='bx bxl-linkedin text-2xl'></i></a>
+                            <a href="https://x.com/bigboy_code/photo" class="text-gray-400 hover:text-white bg-gray-700 hover:bg-blue-600 rounded-full p-3 transition-all duration-300"><i class='bx bxl-twitter text-2xl'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer Section -->
+  <footer class="bg-gray-800 border-t border-gray-700 mt-auto">
+    <div class="max-w-screen-xl mx-auto p-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+      <p class="text-sm text-gray-400">Copyright &copy; 2025 by Big-Boy | All Rights Reserved.</p>
+      <div class="mt-4 sm:mt-0">
+        <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 transition-transform duration-300 transform hover:-translate-y-1">
+          <i class='bx bx-up-arrow-alt text-xl'></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Smooth scroll for the "Back to Top" button
+        const backToTopLink = document.querySelector('.footer a[href="#contact"]');
+        if (backToTopLink) {
+            backToTopLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector('#contact').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+  </script>
+</body>
+</html>
