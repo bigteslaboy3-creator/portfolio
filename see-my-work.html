@@ -19,6 +19,16 @@
       --text-color: #e8eef8;
       --main-color: #4f8cff;
       --muted-color: #a7b3c5;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    :root.light {
+      --bg-color: #f7f9fc;
+      --second-bg-color: #ffffff;
+      --text-color: #0b1727;
+      --muted-color: #4b5563;
+      --main-color: #275efe;
+      --border-color: rgba(0, 0, 0, 0.08);
     }
 
     body {
@@ -28,6 +38,13 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .portfolio-box {
+      background-color: var(--second-bg-color);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
     }
 
     .portfolio-box img {
@@ -51,118 +68,171 @@
     html {
       scroll-behavior: smooth;
     }
+
+    .theme-toggle {
+      margin-left: 8px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      background-color: rgba(17, 22, 29, 0.6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-link {
+      color: var(--muted-color);
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-color);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .footer {
+      background-color: var(--second-bg-color);
+      border-top: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .back-to-top {
+      background-color: var(--main-color);
+      transition: all 0.3s ease;
+    }
+
+    .text-muted {
+      color: var(--muted-color);
+    }
+    
+    .text-primary {
+      color: var(--text-color);
+    }
   </style>
 </head>
 
-<body class="bg-gray-900 text-gray-100">
+<body>
 
   <!-- Header Section -->
-  <header class="bg-gray-900/80 backdrop-blur-md shadow-lg fixed w-full z-20 top-0 start-0 border-b border-gray-700">
+  <header class="header fixed w-full z-20 top-0 start-0">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="index.html" class="text-2xl font-bold">Portfol<span class="text-blue-500">io</span></a>
-      <nav class="hidden md:flex items-center space-x-2">
-        <a href="index.html#home"
-          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Home</a>
-        <a href="index.html#about"
-          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">About</a>
-        <a href="index.html#services"
-          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Services</a>
-        <a href="see-my-work.html"
-          class="px-3 py-2 rounded-md text-sm font-medium bg-gray-700 text-white transition-colors">Portfolio</a>
-        <a href="contact.html"
-          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Contact</a>
-      </nav>
-
+      <a href="index.html" class="text-2xl font-bold text-primary">Portfol<span style="color: var(--main-color)">io</span></a>
+      
+      <div class="flex items-center space-x-4">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class='bx bx-moon' id="themeIcon"></i>
+        </button>
+        
+        <nav class="hidden md:flex items-center space-x-2">
+          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
+          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About</a>
+          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Services</a>
+          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active">Portfolio</a>
+          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+        </nav>
+      </div>
+    </div>
   </header>
 
-  <main class="flex-grow">
+  <main class="flex-grow pt-20">
     <!-- Portfolio Section -->
     <section class="portfolio py-28 px-4 sm:px-6 lg:px-8" id="portfolio">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-16">See My <span class="text-blue-500">Work</span>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-16 text-primary">See My <span style="color: var(--main-color)">Work</span>
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Project Cards -->
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="portfolio-image/portfolio-contact.png" alt="Working Contact Form"
               class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">Working Contact Form</h4>
-              <p class="text-gray-400 text-sm mb-4">A fully functional contact form integrated via EmailJS for instant
+              <h4 class="text-xl font-bold mb-2 text-primary">Working Contact Form</h4>
+              <p class="text-sm mb-4 text-muted">A fully functional contact form integrated via EmailJS for instant
                 client communication.<span class="more-text"> It includes real-time validation, custom field support,
                   and seamless email notifications.</span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/#contact" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/#contact" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
 
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="portfolio-image/portfolio-ecomas-3.png" alt="E-commerce Website" class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">E-commerce Website</h4>
-              <p class="text-gray-400 text-sm mb-4">A modern online store with product listings, cart functionality, and
+              <h4 class="text-xl font-bold mb-2 text-primary">E-commerce Website</h4>
+              <p class="text-sm mb-4 text-muted">A modern online store with product listings, cart functionality, and
                 checkout integration.<span class="more-text"> Optimized for all devices, it provides smooth navigation
                   and secure transactions.</span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="#" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="#" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
 
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="portfolio-image/artist-portfolio-2.png" alt="Artist Portfolio Website"
               class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">Artist Portfolio Website</h4>
-              <p class="text-gray-400 text-sm mb-4">A personal portfolio site for an artist to showcase creative work
+              <h4 class="text-xl font-bold mb-2 text-primary">Artist Portfolio Website</h4>
+              <p class="text-sm mb-4 text-muted">A personal portfolio site for an artist to showcase creative work
                 elegantly.<span class="more-text"> Featuring high-resolution galleries and interactive project
                   displays.</span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
 
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="screenshot-1757146168711.png" alt="SaaS Developer Portfolio" class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">SaaS Developer Portfolio</h4>
-              <p class="text-gray-400 text-sm mb-4">A sleek portfolio website for a SaaS developer, highlighting skills
+              <h4 class="text-xl font-bold mb-2 text-primary">SaaS Developer Portfolio</h4>
+              <p class="text-sm mb-4 text-muted">A sleek portfolio website for a SaaS developer, highlighting skills
                 and past projects.<span class="more-text"> Includes interactive elements and dynamic project
                   showcases.</span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="https://bigteslaboy3-creator.github.io/sass-portfolio-website/" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="https://bigteslaboy3-creator.github.io/sass-portfolio-website/" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
 
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="portfolio-image/landing-page website.png" alt="Landing Page Design"
               class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">Landing Page Design</h4>
-              <p class="text-gray-400 text-sm mb-4">A high-converting landing page optimized for marketing
+              <h4 class="text-xl font-bold mb-2 text-primary">Landing Page Design</h4>
+              <p class="text-sm mb-4 text-muted">A high-converting landing page optimized for marketing
                 campaigns.<span class="more-text"> Features a clean layout, persuasive call-to-actions, and fast load
                   times.</span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="https://bigteslaboy3-creator.github.io/landing-page-website/" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="https://bigteslaboy3-creator.github.io/landing-page-website/" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
 
-          <div class="portfolio-box bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+          <div class="portfolio-box rounded-2xl overflow-hidden shadow-2xl">
             <img src="portfolio-image/Screenshot 2025-09-12 170704.png" alt="Blog Website"
               class="w-full h-48 object-cover">
             <div class="portfolio-layer p-6">
-              <h4 class="text-xl font-bold mb-2">Calculator App</h4>
-              <p class="text-gray-400 text-sm mb-4">A versatile calculator with
+              <h4 class="text-xl font-bold mb-2 text-primary">Calculator App</h4>
+              <p class="text-sm mb-4 text-muted">A versatile calculator with
                 scientific, financial, and loan features, dark mode, and
                 calculation history. Fully responsive for desktop and mobile.
                 design.<span class="more-text">This app is designed
@@ -171,8 +241,8 @@
                   functionality with a sleek, modern interface.
                 </span></p>
               <div class="flex justify-between items-center">
-                <button class="read-more-btn text-blue-500 font-semibold text-sm hover:underline">Read More</button>
-                <a href="https://bigteslaboy3-creator.github.io/calculator_app/" class="text-blue-400 hover:text-blue-300 text-2xl"><i class='bx bx-link-external'></i></a>
+                <button class="read-more-btn font-semibold text-sm hover:underline" style="color: var(--main-color)">Read More</button>
+                <a href="https://bigteslaboy3-creator.github.io/calculator_app/" class="text-2xl" style="color: var(--main-color)"><i class='bx bx-link-external'></i></a>
               </div>
             </div>
           </div>
@@ -183,13 +253,13 @@
   </main>
 
   <!-- Footer Section -->
-  <footer class="bg-gray-800 border-t border-gray-700 mt-auto">
+  <footer class="footer mt-auto">
     <div
       class="max-w-screen-xl mx-auto p-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-      <p class="text-sm text-gray-400">Copyright &copy; 2025 by Big-Boy | All Rights Reserved.</p>
+      <p class="text-sm text-muted">Copyright &copy; 2025 by Big-Boy | All Rights Reserved.</p>
       <div class="mt-4 sm:mt-0">
         <a href="#portfolio"
-          class="inline-block bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 transition-transform duration-300 transform hover:-translate-y-1">
+          class="back-to-top inline-block text-white rounded-full p-2 transition-transform duration-300 transform hover:-translate-y-1">
           <i class='bx bx-up-arrow-alt text-xl'></i>
         </a>
       </div>
@@ -197,6 +267,37 @@
   </footer>
 
   <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+      htmlElement.classList.add('light');
+      themeIcon.classList.replace('bx-moon', 'bx-sun');
+    } else {
+      htmlElement.classList.remove('light');
+      themeIcon.classList.replace('bx-sun', 'bx-moon');
+    }
+
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('light')) {
+        htmlElement.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.classList.replace('bx-sun', 'bx-moon');
+      } else {
+        htmlElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.classList.replace('bx-moon', 'bx-sun');
+      }
+    });
+
     // JavaScript for "Read More" functionality
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.read-more-btn').forEach(btn => {
