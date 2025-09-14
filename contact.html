@@ -166,12 +166,17 @@
           <i class='bx bx-moon' id="themeIcon"></i>
         </button>
         
-        <nav class="hidden md:flex items-center space-x-2">
-          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
-          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About</a>
-          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Services</a>
-          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Portfolio</a>
-          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active">Contact</a>
+        <!-- Mobile menu toggle button -->
+        <button id="menu-toggle" class="md:hidden flex items-center p-2 text-sm rounded-lg" aria-label="Open menu">
+          <i class='bx bx-menu text-2xl'></i>
+        </button>
+
+        <nav id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-[var(--second-bg-color)] md:static md:w-auto md:bg-transparent md:flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-2 p-4 md:p-0 transition-all duration-300 ease-in-out">
+          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Home</a>
+          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">About</a>
+          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Services</a>
+          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Portfolio</a>
+          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active w-full text-center">Contact</a>
         </nav>
       </div>
     </div>
@@ -311,9 +316,33 @@
                 });
             });
         }
+
+        // Mobile menu toggle functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuToggle.querySelector('i');
+        
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          if (mobileMenu.classList.contains('hidden')) {
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+          } else {
+            menuIcon.classList.remove('bx-menu');
+            menuIcon.classList.add('bx-x');
+          }
+        });
+        
+        // This part closes the menu when a link is clicked
+        const navLinks = mobileMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('bx-x');
+            menuIcon.classList.add('bx-menu');
+          });
+        });
     });
   </script>
 </body>
 </html>
-
-
