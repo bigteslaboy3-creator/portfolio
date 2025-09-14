@@ -9,17 +9,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Boxicons for icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<!-- Standard favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
+  <!-- Standard favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
 
-<!-- Larger sizes for high-resolution displays -->
-<link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
->
+  <!-- Larger sizes for high-resolution displays -->
+  <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
+
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Google Fonts for a clean, modern look -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -126,7 +126,7 @@
     .text-muted {
       color: var(--muted-color);
     }
-    
+
     .text-primary {
       color: var(--text-color);
     }
@@ -145,13 +145,18 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
           <i class='bx bx-moon' id="themeIcon"></i>
         </button>
+
+        <!-- Mobile menu toggle button -->
+        <button id="menu-toggle" class="md:hidden flex items-center p-2 text-sm rounded-lg" aria-label="Open menu">
+          <i class='bx bx-menu text-2xl'></i>
+        </button>
         
-        <nav class="hidden md:flex items-center space-x-2">
-          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
-          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About</a>
-          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Services</a>
-          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active">Portfolio</a>
-          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+        <nav id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-[var(--second-bg-color)] md:static md:w-auto md:bg-transparent md:flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-2 p-4 md:p-0 transition-all duration-300 ease-in-out">
+          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Home</a>
+          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">About</a>
+          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Services</a>
+          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active w-full text-center">Portfolio</a>
+          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Contact</a>
         </nav>
       </div>
     </div>
@@ -330,10 +335,34 @@
           });
         });
       }
+      
+      // Mobile menu toggle functionality
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = menuToggle.querySelector('i');
+      
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        if (mobileMenu.classList.contains('hidden')) {
+          menuIcon.classList.remove('bx-x');
+          menuIcon.classList.add('bx-menu');
+        } else {
+          menuIcon.classList.remove('bx-menu');
+          menuIcon.classList.add('bx-x');
+        }
+      });
+      
+      // This part closes the menu when a link is clicked
+      const navLinks = mobileMenu.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('bx-x');
+          menuIcon.classList.add('bx-menu');
+        });
+      });
     });
   </script>
 </body>
 
 </html>
-
-
