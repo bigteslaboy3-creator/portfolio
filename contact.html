@@ -1,347 +1,244 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Me - Bigboy</title>
-<!-- Standard favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
-
-<!-- Larger sizes for high-resolution displays -->
-<link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-
-  <!-- Tailwind CSS for modern styling -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Boxicons for icons -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Me — Bigboy Chuks</title>
+  
+  <link rel="icon" type="image/png" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <!-- Google Fonts for a clean, modern look -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- icon link -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    /* Custom CSS variables and base styles */
     :root {
-      --bg-color: #0b0f14;
-      --second-bg-color: #11161d;
-      --text-color: #e8eef8;
-      --main-color: #4f8cff;
-      --muted-color: #a7b3c5;
-      --border-color: rgba(255, 255, 255, 0.08);
+      --bg: #0f172a;
+      --bg-gradient: radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 25%), 
+                      radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.15), transparent 25%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --primary: #6366f1;
+      --accent: #06b6d4;
+      --border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(15, 23, 42, 0.6);
+      --nav-bg: rgba(15, 23, 42, 0.85);
     }
 
-    :root.light {
-      --bg-color: #f7f9fc;
-      --second-bg-color: #ffffff;
-      --text-color: #0b1727;
-      --muted-color: #4b5563;
-      --main-color: #275efe;
-      --border-color: rgba(0, 0, 0, 0.08);
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --input-bg: #f1f5f9;
+      --border: rgba(0, 0, 0, 0.08);
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      background-image: var(--bg-gradient);
+      color: var(--text-primary);
+      overflow-x: hidden;
     }
 
-    html {
-        scroll-behavior: smooth;
-    }
+    .container { max-width: 1100px; margin: auto; padding: 0 20px; }
 
-    /* Style for form input focus */
-    .form-input:focus {
-        box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.5);
-        border-color: var(--main-color);
-    }
-
-    .theme-toggle {
-      margin-left: 8px;
-      border: 1px solid var(--border-color);
-      background: transparent;
-      color: var(--text-color);
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
+    /* HEADER */
     .header {
-      background-color: rgba(17, 22, 29, 0.6);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: var(--nav-bg); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 15px 0;
     }
-
-    .nav-link {
-      color: var(--muted-color);
-      transition: all 0.3s ease;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--text-color);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .contact-container {
-      background-color: var(--second-bg-color);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .contact-icon {
-      background-color: var(--second-bg-color);
-      transition: all 0.3s ease;
-    }
-
-    .social-icon {
-      background-color: var(--second-bg-color);
-      color: var(--muted-color);
-      transition: all 0.3s ease;
-    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; }
+    .logo span { color: var(--primary); }
+    .logo { color: var(--text-primary); font-size: 1.5rem; text-decoration: none; font-weight:800; }
     
-    .social-icon:hover {
-      color: var(--text-color);
-      background-color: var(--main-color);
+    .navbar { display: flex; gap: 20px; align-items: center; }
+    .navbar a { color: var(--text-secondary); font-weight: 500; text-decoration: none; transition: 0.3s; padding: 8px 12px; border-radius: 8px; }
+    .navbar a:hover, .navbar a.active { color: var(--primary); background: rgba(99, 102, 241, 0.1); }
+
+    .nav-actions { display: flex; gap: 15px; align-items: center; }
+    #menu-icon { display: none; font-size: 1.8rem; cursor: pointer; }
+
+    /* CONTACT SECTION */
+    section { padding: 120px 0 50px; }
+    .heading { text-align: center; margin-bottom: 40px; font-size: 2.2rem; }
+    .heading span { color: var(--primary); }
+
+    .contact-wrapper {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px;
     }
 
-    .footer {
-      background-color: var(--second-bg-color);
-      border-top: 1px solid var(--border-color);
-      transition: all 0.3s ease;
+    /* BOX STYLES (Desktop) */
+    .contact-info, .contact-form {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 35px;
     }
 
-    .back-to-top {
-      background-color: var(--main-color);
-      transition: all 0.3s ease;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 20px; }
     
-    /* Form elements */
-    .form-input {
-      background-color: var(--second-bg-color);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-      transition: all 0.3s ease;
+    label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
+    input, textarea {
+      width: 100%; background: var(--input-bg);
+      border: 1px solid var(--border); padding: 14px;
+      border-radius: 10px; color: var(--text-primary);
+      font-family: inherit;
     }
-    
-    .form-input::placeholder {
-      color: var(--muted-color);
+
+    .submit-btn {
+      width: 100%; padding: 15px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; font-weight: 600; cursor: pointer;
     }
-    
-    label {
-      color: var(--text-color);
+
+    /* MOBILE OPTIMIZATION */
+    @media (max-width: 850px) {
+      .container { padding: 0 15px; } 
+      .contact-wrapper { grid-template-columns: 1fr; gap: 20px; }
+      
+      .contact-info, .contact-form {
+        background: transparent;
+        border: none;
+        padding: 10px 0;
+      }
+
+      .form-row { grid-template-columns: 1fr; gap: 0; } 
+      .heading { font-size: 1.8rem; margin-bottom: 20px; }
+      
+      input, textarea {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+      }
+
+      /* Mobile Nav Logic */
+      #menu-icon { display: block; }
+      .navbar {
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: var(--nav-bg); flex-direction: column; padding: 20px;
+        border-bottom: 1px solid var(--border); transform: translateY(-200%);
+        transition: 0.3s; opacity: 0;
+      }
+      .navbar.open { transform: translateY(0); opacity: 1; }
     }
-    
-    /* Text colors */
-    .text-muted {
-      color: var(--muted-color);
+
+    footer {
+      text-align: center; padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      background: var(--nav-bg); color: var(--text-secondary);
     }
-    
-    .text-primary {
-      color: var(--text-color);
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header class="header fixed w-full z-20 top-0 start-0">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="index.html" class="text-2xl font-bold text-primary">Portfol<span style="color: var(--main-color)">io</span></a>
-      
-      <div class="flex items-center space-x-4">
-        <!-- Theme Toggle Button -->
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <i class='bx bx-moon' id="themeIcon"></i>
-        </button>
-        
-        <!-- Mobile menu toggle button -->
-        <button id="menu-toggle" class="md:hidden flex items-center p-2 text-sm rounded-lg" aria-label="Open menu">
-          <i class='bx bx-menu text-2xl'></i>
-        </button>
 
-        <nav id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-[var(--second-bg-color)] md:static md:w-auto md:bg-transparent md:flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-2 p-4 md:p-0 transition-all duration-300 ease-in-out">
-          <a href="index.html#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Home</a>
-          <a href="index.html#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">About</a>
-          <a href="index.html#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Services</a>
-          <a href="see-my-work.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium w-full text-center">Portfolio</a>
-          <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium active w-full text-center">Contact</a>
-        </nav>
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Portfol<span>io</span></a>
+         
+      <nav class="navbar" id="navbar">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="see-my-work.html">Portfolio</a> 
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="themeToggle" style="background:none; border:none; color:var(--text-primary); cursor:pointer; font-size:1.5rem;">
+          <i class='bx bx-moon'></i>
+        </button>
+        <i class='bx bx-menu' id="menu-icon"></i>
       </div>
     </div>
   </header>
 
-  <main class="flex-grow pt-20">
-    <!-- Contact Section -->
-    <section class="contact py-20 px-4 sm:px-6 lg:px-8" id="contact">
-      <div class="max-w-7xl mx-auto">
-        <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-16 text-primary">Contact <span style="color: var(--main-color)">Me</span></h2>
-        
-        <div class="contact-container rounded-2xl shadow-2xl p-8 md:p-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <h3 class="text-2xl font-bold mb-6 text-primary">Send a Message</h3>
-                    <form action="https://formspree.io/f/xnnbrykj" method="POST">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div>
-                                <label for="full-name" class="block text-sm font-medium mb-2 text-primary">Full Name</label>
-                                <input type="text" name="full-name" id="full-name" placeholder="John Doe" required class="form-input w-full rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium mb-2 text-primary">Email Address</label>
-                                <input type="email" name="email" id="email" placeholder="your.email@example.com" required class="form-input w-full rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <label for="subject" class="block text-sm font-medium mb-2 text-primary">Subject</label>
-                            <input type="text" name="subject" id="subject" placeholder="Project Inquiry" required class="form-input w-full rounded-lg p-3 text-sm transition duration-300 focus:outline-none">
-                        </div>
-                        <div class="mt-6">
-                            <label for="message" class="block text-sm font-medium mb-2 text-primary">Message</label>
-                            <textarea name="message" id="message" rows="5" placeholder="Hi, I'd like to talk about..." required class="form-input w-full rounded-lg p-3 text-sm transition duration-300 focus:outline-none"></textarea>
-                        </div>
-                        <div class="mt-8 text-right">
-                            <button type="submit" style="background-color: var(--main-color)" class="hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 duration-300">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                </div>
+  <section>
+    <div class="container">
+      <h2 class="heading">Contact <span>Me</span></h2>
+      
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3 style="margin-bottom:15px;">Get in Touch</h3>
+          <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.95rem;">Feel free to reach out for projects or collaborations.</p>
+          <p><i class='bx bxs-envelope' style="color:var(--primary)"></i> bigteslaboy@gmail.com</p>
+          <p style="margin-top:10px;"><i class='bx bxs-phone' style="color:var(--primary)"></i> +234 916 281 2387</p>
+        </div>
 
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <h3 class="text-2xl font-bold mb-6 text-primary">Get in Touch</h3>
-                    <p class="mb-8 text-muted">
-                        Have a project in mind or just want to say hello? Feel free to reach out. I'm always open to discussing new ideas and opportunities.
-                    </p>
-                    <ul class="space-y-6">
-                        <li class="flex items-center">
-                            <div class="contact-icon rounded-full p-3 mr-4">
-                               <i class='bx bxs-envelope' style="color: var(--main-color);" class="text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-primary">Email</h4>
-                                <a href="mailto:bigteslaboy@gmail.com" class="text-muted hover:text-blue-400 transition-colors">bigteslaboy@gmail.com</a>
-                            </div>
-                        </li>
-                         <li class="flex items-center">
-                            <div class="contact-icon rounded-full p-3 mr-4">
-                                <i class='bx bxs-phone' style="color: var(--main-color);" class="text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-primary">Phone</h4>
-                                <a href="tel:+2349162812387" class="text-muted hover:text-blue-400 transition-colors">+234 916 281 2387</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="mt-10">
-                        <h4 class="font-semibold mb-4 text-primary">Follow Me</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://github.com/bigteslaboy3-creator" class="social-icon rounded-full p-3 transition-all duration-300"><i class='bx bxl-github text-2xl'></i></a>
-                            <a href="https://ng.linkedin.com/in/big-boy-019464300" class="social-icon rounded-full p-3 transition-all duration-300"><i class='bx bxl-linkedin text-2xl'></i></a>
-                            <a href="https://x.com/bigboy_code/photo" class="social-icon rounded-full p-3 transition-all duration-300"><i class='bx bxl-twitter text-2xl'></i></a>
-                        </div>
-                    </div>
-                </div>
+        <div class="contact-form">
+          <form action="https://formspree.io/f/xnnbrykj" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Name" required>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Email" required>
+              </div>
             </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" name="subject" placeholder="Project Inquiry" required>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
         </div>
       </div>
-    </section>
-  </main>
-  
-  <!-- Footer Section -->
-  <footer class="footer mt-auto">
-    <div class="max-w-screen-xl mx-auto p-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-      <p class="text-sm text-muted">Copyright &copy; 2025 by Big-Boy | All Rights Reserved.</p>
-      <div class="mt-4 sm:mt-0">
-        <a href="#contact" class="back-to-top inline-block text-white rounded-full p-2 transition-transform duration-300 transform hover:-translate-y-1">
-          <i class='bx bx-up-arrow-alt text-xl'></i>
-        </a>
-      </div>
     </div>
+  </section>
+
+  <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" target="_blank" 
+     style="position:fixed; bottom:30px; left:30px; width:60px; height:60px; background:var(--primary); color:white; border-radius:50%; display:grid; place-items:center; font-size:2rem; box-shadow: 0 5px 20px rgba(99, 102, 241, 0.5); z-index:999; animation: bounce 2s infinite;">
+    <i class='bx bx-bot'></i>
+  </a>
+
+  <footer>
+    <p>&copy; 2026 Bigboy Chuks. Crafted with <i class='bx bxs-heart' style="color:red"></i> and Code.</p>
   </footer>
 
   <script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlElement = document.documentElement;
+    /* --- THEME TOGGLE --- */
+    const themeBtn = document.getElementById('themeToggle');
+    const icon = themeBtn.querySelector('i');
+    const root = document.documentElement;
 
-    // Check for saved theme preference or respect OS preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial theme
-    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-      htmlElement.classList.add('light');
-      themeIcon.classList.replace('bx-moon', 'bx-sun');
-    } else {
-      htmlElement.classList.remove('light');
-      themeIcon.classList.replace('bx-sun', 'bx-moon');
+    if (localStorage.getItem('theme') === 'light') {
+      root.setAttribute('data-theme', 'light');
+      icon.className = 'bx bx-sun';
     }
 
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', () => {
-      if (htmlElement.classList.contains('light')) {
-        htmlElement.classList.remove('light');
+    themeBtn.addEventListener('click', () => {
+      if (root.hasAttribute('data-theme')) {
+        root.removeAttribute('data-theme');
+        icon.className = 'bx bx-moon';
         localStorage.setItem('theme', 'dark');
-        themeIcon.classList.replace('bx-sun', 'bx-moon');
       } else {
-        htmlElement.classList.add('light');
+        root.setAttribute('data-theme', 'light');
+        icon.className = 'bx bx-sun';
         localStorage.setItem('theme', 'light');
-        themeIcon.classList.replace('bx-moon', 'bx-sun');
       }
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Smooth scroll for the "Back to Top" button
-        const backToTopLink = document.querySelector('.footer a[href="#contact"]');
-        if (backToTopLink) {
-            backToTopLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelector('#contact').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        }
+    /* --- MOBILE MENU --- */
+    const menuIcon = document.getElementById('menu-icon');
+    const navbar = document.getElementById('navbar');
 
-        // Mobile menu toggle functionality
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = menuToggle.querySelector('i');
-        
-        menuToggle.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          if (mobileMenu.classList.contains('hidden')) {
-            menuIcon.classList.remove('bx-x');
-            menuIcon.classList.add('bx-menu');
-          } else {
-            menuIcon.classList.remove('bx-menu');
-            menuIcon.classList.add('bx-x');
-          }
-        });
-        
-        // This part closes the menu when a link is clicked
-        const navLinks = mobileMenu.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            menuIcon.classList.remove('bx-x');
-            menuIcon.classList.add('bx-menu');
-          });
-        });
+    menuIcon.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      menuIcon.classList.toggle('bx-x');
     });
   </script>
 </body>
