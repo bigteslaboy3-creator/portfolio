@@ -6,35 +6,27 @@
   <title>My Work — Bigboy Chuks</title>
   
   <link rel="icon" type="image/png" href="https://i.ibb.co/HDsJMpGC/Vibrant-Gradient-B-Design.png">
-
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ----- EXACT VARIABLES FROM YOUR INDEX.HTML ----- */
     :root {
-      /* Dark Theme (Default) */
       --bg: #0f172a;
-      --bg-gradient: radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 25%), 
-                     radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.15), transparent 25%);
       --card-bg: rgba(30, 41, 59, 0.7);
       --text-primary: #f1f5f9;
       --text-secondary: #94a3b8;
-      --primary: #6366f1; /* Indigo */
-      --accent: #06b6d4;  /* Cyan */
+      --primary: #6366f1;
+      --accent: #06b6d4;
       --border: rgba(255, 255, 255, 0.08);
       --shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
       --nav-bg: rgba(15, 23, 42, 0.85);
       --glass: blur(12px);
+      --glow: 0 0 20px rgba(99,102,241,0.4);
     }
-
-    /* Light Theme Overrides */
     [data-theme="light"] {
       --bg: #f8fafc;
-      --bg-gradient: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%), 
-                     radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08), transparent 25%);
       --card-bg: #ffffff;
       --text-primary: #0f172a;
       --text-secondary: #475569;
@@ -43,148 +35,128 @@
       --border: rgba(0, 0, 0, 0.08);
       --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
       --nav-bg: rgba(248, 250, 252, 0.85);
+      --glow: 0 0 20px rgba(79,70,229,0.2);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
     body {
       font-family: 'Outfit', sans-serif;
-      background-color: var(--bg);
-      background-image: var(--bg-gradient);
-      background-attachment: fixed;
-      color: var(--text-primary);
-      line-height: 1.6;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background-color: var(--bg); color: var(--text-primary);
+      line-height: 1.6; overflow-x: hidden;
+      min-height: 100vh; display: flex; flex-direction: column;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
-
     a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-    /* ----- HEADER & NAV (Shared) ----- */
-    .header {
-      position: fixed; top: 0; left: 0; width: 100%;
-      z-index: 1000;
-      background: var(--nav-bg);
-      backdrop-filter: var(--glass);
-      -webkit-backdrop-filter: var(--glass);
-      border-bottom: 1px solid var(--border);
-      padding: 15px 0;
+    #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    .orb { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.15; animation: orbFloat 12s ease-in-out infinite; pointer-events: none; z-index: 0; }
+    .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); top: 30%; right: -120px; animation-delay: -4s; }
+    .orb-3 { width: 350px; height: 350px; background: var(--primary); bottom: 10%; left: 20%; animation-delay: -8s; }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px,-30px) scale(1.05); }
+      66% { transform: translate(-20px,20px) scale(0.97); }
     }
 
-    .container { max-width: 1100px; margin: auto; padding: 0 20px; width: 100%; }
+    .cursor-glow { position: fixed; pointer-events: none; z-index: 9999; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%); transform: translate(-50%,-50%); transition: opacity 0.3s; }
+
+    .header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: var(--nav-bg); backdrop-filter: var(--glass); -webkit-backdrop-filter: var(--glass); border-bottom: 1px solid var(--border); padding: 15px 0; transition: box-shadow 0.3s; }
+    .header.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+
+    .container { max-width: 1100px; margin: auto; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
     .nav-container { display: flex; justify-content: space-between; align-items: center; }
-    
     .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
     .logo span { color: var(--primary); }
 
     .navbar { display: flex; gap: 20px; align-items: center; }
-    .navbar a { font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; }
-    .navbar a:hover, .navbar a.active { color: var(--primary); background: rgba(99, 102, 241, 0.1); }
+    .navbar a { font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; position: relative; }
+    .navbar a::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--primary); border-radius: 2px; transition: width 0.3s ease; }
+    .navbar a:hover::after, .navbar a.active::after { width: 60%; }
+    .navbar a:hover, .navbar a.active { color: var(--primary); background: rgba(99,102,241,0.1); }
 
     .nav-actions { display: flex; gap: 15px; align-items: center; }
-    .theme-btn {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--text-primary); width: 36px; height: 36px; border-radius: 8px;
-      cursor: pointer; display: grid; place-items: center; font-size: 1.2rem; transition: 0.3s;
-    }
-    .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .theme-btn { background: transparent; border: 1px solid var(--border); color: var(--text-primary); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: grid; place-items: center; font-size: 1.2rem; transition: 0.3s; }
+    .theme-btn:hover { border-color: var(--primary); color: var(--primary); box-shadow: var(--glow); }
     #menu-icon { display: none; font-size: 1.8rem; cursor: pointer; }
 
-    /* ----- PORTFOLIO SPECIFIC STYLES ----- */
-    main { padding-top: 120px; padding-bottom: 60px; flex-grow: 1; }
+    main { padding-top: 120px; padding-bottom: 80px; flex-grow: 1; }
 
-    .page-heading {
-      text-align: center; font-size: 3rem; margin-bottom: 60px;
-      line-height: 1.2;
-    }
-    .page-heading span { color: var(--primary); }
+    .page-hero { text-align: center; margin-bottom: 60px; }
+    .page-hero .eyebrow { display: inline-block; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2); padding: 6px 16px; border-radius: 50px; margin-bottom: 20px; animation: heroFadeIn 0.7s ease 0.2s both; }
+    .page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.15; margin-bottom: 16px; animation: heroSlideUp 0.7s cubic-bezier(.22,.68,0,1.2) 0.4s both; }
+    .page-hero h1 span { color: var(--primary); }
+    .page-hero p { max-width: 520px; margin: 0 auto 30px; color: var(--text-secondary); font-size: 1.05rem; animation: heroSlideUp 0.7s cubic-bezier(.22,.68,0,1.2) 0.6s both; }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-    }
+    @keyframes heroSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
+    .filter-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px; animation: heroSlideUp 0.7s cubic-bezier(.22,.68,0,1.2) 0.8s both; }
+    .filter-tab { padding: 8px 22px; border-radius: 50px; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-tab.active { background: linear-gradient(135deg, var(--primary), var(--accent)); border-color: transparent; color: white; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
 
-    .project-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow);
-    }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 30px; }
 
-    .img-wrapper {
-      width: 100%; height: 220px; overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
+    .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), border-color 0.3s, box-shadow 0.3s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: relative; }
+    .project-card:hover { transform: translateY(-10px); border-color: rgba(99,102,241,0.5); box-shadow: var(--shadow), var(--glow); }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: 2; }
+    .project-card:hover::before { transform: scaleX(1); }
 
-    .img-wrapper img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+    .img-wrapper { width: 100%; height: 230px; overflow: hidden; border-bottom: 1px solid var(--border); position: relative; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+    .img-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.6s cubic-bezier(.22,.68,0,1.2); display: block; }
+    .project-card:hover .img-wrapper img { transform: scale(1.08); }
 
-    .project-card:hover .img-wrapper img { transform: scale(1.1); }
+    .img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(6,182,212,0.1) 100%); }
+    .img-placeholder i { font-size: 3rem; color: var(--primary); opacity: 0.7; }
+    .img-placeholder span { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; letter-spacing: 1px; }
+
+    .img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.2) 60%, transparent 100%); opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 18px; }
+    .project-card:hover .img-overlay { opacity: 1; }
+    .img-overlay .tag-list { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; padding: 4px 10px; border-radius: 50px; background: rgba(99,102,241,0.3); border: 1px solid rgba(99,102,241,0.4); color: #c7d2fe; }
 
     .card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-    .card-content h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--text-primary); }
+    .card-content h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text-primary); transition: color 0.3s; }
+    .project-card:hover .card-content h3 { color: var(--primary); }
     .card-content p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
-
     .more-text { display: none; }
     .more-text.show { display: inline; }
 
-    .card-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-top: auto; padding-top: 15px;
-      border-top: 1px solid var(--border);
-    }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border); }
+    .read-more { background: none; border: none; color: var(--accent); font-weight: 600; cursor: pointer; font-size: 0.9rem; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 5px; transition: gap 0.3s; }
+    .read-more:hover { gap: 8px; }
+    .read-more i { font-size: 1rem; transition: transform 0.3s; }
 
-    .read-more {
-      background: none; border: none;
-      color: var(--accent); font-weight: 600; cursor: pointer;
-      font-size: 0.9rem; font-family: 'Outfit', sans-serif;
-    }
-    .read-more:hover { text-decoration: underline; }
+    .visit-btn { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: grid; place-items: center; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(99,102,241,0.3); transition: transform 0.3s cubic-bezier(.22,.68,0,1.5), box-shadow 0.3s; }
+    .visit-btn:hover { transform: scale(1.2) rotate(10deg); box-shadow: 0 6px 20px rgba(99,102,241,0.5); }
 
-    .visit-btn {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white; display: grid; place-items: center;
-      font-size: 1.2rem; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    }
-    .visit-btn:hover { transform: scale(1.1); }
-
-    /* ----- FOOTER ----- */
-    footer {
-      text-align: center; padding: 40px 20px;
-      border-top: 1px solid var(--border);
-      background: var(--nav-bg); color: var(--text-secondary);
-      margin-top: auto;
-    }
-
-    /* ----- SCROLL REVEAL ----- */
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.22,.68,0,1.1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
-    /* ----- RESPONSIVE ----- */
+    .stagger-grid .project-card { opacity: 0; transform: translateY(35px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.22,.68,0,1.2); }
+    .stagger-grid.active .project-card:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+    .stagger-grid.active .project-card:nth-child(2) { opacity:1; transform:none; transition-delay:0.12s; }
+    .stagger-grid.active .project-card:nth-child(3) { opacity:1; transform:none; transition-delay:0.19s; }
+    .stagger-grid.active .project-card:nth-child(4) { opacity:1; transform:none; transition-delay:0.26s; }
+    .stagger-grid.active .project-card:nth-child(5) { opacity:1; transform:none; transition-delay:0.33s; }
+    .stagger-grid.active .project-card:nth-child(6) { opacity:1; transform:none; transition-delay:0.40s; }
+    .stagger-grid.active .project-card:nth-child(7) { opacity:1; transform:none; transition-delay:0.47s; }
+    .stagger-grid.active .project-card:nth-child(8) { opacity:1; transform:none; transition-delay:0.54s; }
+
+    .project-card.hidden { display: none; }
+
+    .chatbot-btn { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 50%; display: grid; place-items: center; font-size: 2rem; box-shadow: 0 5px 20px rgba(99,102,241,0.5); z-index: 999; transition: transform 0.3s cubic-bezier(.22,.68,0,1.5), box-shadow 0.3s; }
+    .chatbot-btn:hover { transform: scale(1.15) rotate(-10deg); box-shadow: 0 8px 30px rgba(99,102,241,0.7); }
+    .chatbot-btn i { animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+    footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); background: var(--nav-bg); color: var(--text-secondary); position: relative; z-index: 1; }
+
     @media (max-width: 900px) {
       #menu-icon { display: block; }
-      .navbar {
-        position: absolute; top: 100%; left: 0; width: 100%;
-        background: var(--nav-bg); flex-direction: column; padding: 20px;
-        border-bottom: 1px solid var(--border);
-        transform: translateY(-200%); transition: 0.3s; opacity: 0;
-      }
+      .navbar { position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 20px; border-bottom: 1px solid var(--border); transform: translateY(-200%); transition: 0.3s; opacity: 0; }
       .navbar.open { transform: translateY(0); opacity: 1; }
       .portfolio-grid { grid-template-columns: 1fr; }
     }
@@ -192,10 +164,15 @@
 </head>
 <body>
 
-  <header class="header">
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <canvas id="particle-canvas"></canvas>
+
+  <header class="header" id="header">
     <div class="container nav-container">
       <a href="index.html" class="logo">Portfol<span>io</span></a>
-      
       <nav class="navbar" id="navbar">
         <a href="index.html#home">Home</a>
         <a href="index.html#about">About</a>
@@ -204,7 +181,6 @@
         <a href="see-my-work.html" class="active">Portfolio</a>
         <a href="contact.html">Contact</a>
       </nav>
-
       <div class="nav-actions">
         <button class="theme-btn" id="themeToggle" aria-label="Toggle Theme">
           <i class='bx bx-moon'></i>
@@ -215,168 +191,361 @@
   </header>
 
   <main class="container">
-    <h1 class="page-heading reveal">Recent <span>Projects</span></h1>
 
-    <div class="portfolio-grid">
+    <div class="page-hero">
+      <div class="eyebrow">✦ My Work</div>
+      <h1>Recent <span>Projects</span></h1>
+      <p>A collection of things I've built — from AI-powered tools to sleek landing pages and creative portfolios.</p>
+    </div>
 
-      <div class="project-card reveal">
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-filter="all">All Projects</button>
+      <button class="filter-tab" data-filter="web">Web Dev</button>
+      <button class="filter-tab" data-filter="ui">UI/UX</button>
+      <button class="filter-tab" data-filter="tool">Tools</button>
+    </div>
+
+    <div class="portfolio-grid stagger-grid" id="portfolioGrid">
+
+      <!-- CARD 1: AI Chatbot — tool -->
+      <div class="project-card" data-category="tool">
         <div class="img-wrapper">
-          <img src="ai-chatbot-screenshot.jpeg" alt="AI Chatbot Screenshot" onerror="this.src='https://placehold.co/600x400/1e293b/FFF?text=AI+Chatbot'">
+          <img src="ai-chatbot-screenshot.jpeg" alt="AI Chatbot"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-bot'></i><span>AI CHATBOT</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">JavaScript</span><span class="tag">AI/NLP</span><span class="tag">API</span>
+            </div>
+          </div>
         </div>
         <div class="card-content">
           <h3>Website AI Chatbot</h3>
-          <p>
-            An AI chatbot that answers user questions about the website.
-            <span class="more-text"> It gives quick help for navigation, services, and key info so visitors can get answers instantly.</span>
+          <p>An AI chatbot that answers user questions about the website.
+            <span class="more-text"> It gives quick help for navigation, services, and key info so visitors can get answers instantly — reducing bounce rates and improving UX.</span>
           </p>
           <div class="card-footer">
-            <button class="read-more" data-more-label="See Chatbot Details" data-less-label="Hide Chatbot Details">See Chatbot Details</button>
-            <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" class="visit-btn"><i class='bx bx-link-external'></i></a>
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
       </div>
 
-
-      <div class="project-card reveal">
+      <!-- CARD 2: Contact System — tool -->
+      <div class="project-card" data-category="tool">
         <div class="img-wrapper">
-          <img src="portfolio-image/portfolio-contact.png" alt="Contact Form" onerror="this.src='https://placehold.co/600x400/1e293b/FFF?text=Contact+System'">
+          <img src="portfolio-image/contact.png" alt="Contact Form"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-envelope'></i><span>CONTACT SYSTEM</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">EmailJS</span><span class="tag">HTML/CSS</span><span class="tag">Validation</span>
+            </div>
+          </div>
         </div>
         <div class="card-content">
           <h3>Dynamic Contact System</h3>
-          <p>
-            A smart contact form integrated via EmailJS for instant alerts.
-            <span class="more-text"> Includes client-side validation, spam protection, and custom auto-reply templates for better engagement.</span>
+          <p>A smart contact form integrated via EmailJS for instant alerts.
+            <span class="more-text"> Includes client-side validation, spam protection, and custom auto-reply templates for better user engagement.</span>
           </p>
           <div class="card-footer">
-            <button class="read-more">Read More</button>
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
             <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/#contact" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
       </div>
 
-      <div class="project-card reveal">
+      <!-- CARD 3: Calculator — tool -->
+      <div class="project-card" data-category="tool">
         <div class="img-wrapper">
-          <img src="portfolio-image/artist-portfolio-2.png" alt="Artist Portfolio" onerror="this.src='https://placehold.co/600x400/1e293b/FFF?text=Artist+Portfolio'">
-        </div>
-        <div class="card-content">
-          <h3>Creative Portfolio</h3>
-          <p>
-            A visually stunning portfolio designed for artists and creators.
-            <span class="more-text"> Focuses on large imagery, masonry layouts, and subtle animations to highlight creative work without distraction.</span>
-          </p>
-          <div class="card-footer">
-            <button class="read-more">Read More</button>
-            <a href="https://bigteslaboy3-creator.github.io/client-portfolio-website/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          <img src="portfolio-image/Screenshot 2025-09-12 170704.png" alt="Calculator App"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-calculator'></i><span>CALCULATOR</span>
           </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="img-wrapper">
-          <img src="screenshot-1757146168711.png" alt="SaaS Portfolio" onerror="this.src='https://placehold.co/600x400/1e293b/FFF?text=SaaS+Project'">
-        </div>
-        <div class="card-content">
-          <h3>SaaS Landing Page</h3>
-          <p>
-            A conversion-focused landing page for a software startup.
-            <span class="more-text"> optimized for speed and SEO, featuring pricing tables, testimonial carousels, and clear CTAs.</span>
-          </p>
-          <div class="card-footer">
-            <button class="read-more">Read More</button>
-            <a href="https://bigteslaboy3-creator.github.io/sass-portfolio-website/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">JavaScript</span><span class="tag">Dark Mode</span><span class="tag">PWA</span>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="img-wrapper">
-          <img src="portfolio-image/Screenshot 2025-09-12 170704.png" alt="Calculator App" onerror="this.src='https://placehold.co/600x400/1e293b/FFF?text=Calculator+App'">
         </div>
         <div class="card-content">
           <h3>Advanced Calculator</h3>
-          <p>
-            A web-based calculator with scientific and financial functions.
-            <span class="more-text"> Supports dark mode, history tracking, and keyboard input support. Built with pure JavaScript.</span>
+          <p>A web-based calculator with scientific and financial functions.
+            <span class="more-text"> Supports dark mode, history tracking, and full keyboard input. Built with pure vanilla JavaScript — no libraries needed.</span>
           </p>
           <div class="card-footer">
-            <button class="read-more">Read More</button>
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
             <a href="https://bigteslaboy3-creator.github.io/calculator_app/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Restaurant Live Map — ui ✅ -->
+      <div class="project-card" data-category="ui">
+        <div class="img-wrapper">
+          <img src="portfolio-image/901shots_so.png" alt="Restaurant Website"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-restaurant'></i><span>FOOD WEBSITE</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Live Map</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Restaurant & Live Map Website</h3>
+          <p>A modern, premium restaurant website with a live interactive map to help guests find the location instantly.
+            <span class="more-text"> Built with a sleek dark UI and smooth animations, this site features a full menu showcase, an about section, opening hours, and a live embedded map that pinpoints the restaurant's exact location in real time. Designed to impress first-time visitors and turn them into regulars.</span>
+          </p>
+          <div class="card-footer">
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/rsvp-web/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Restaurant WhatsApp — ui ✅ -->
+      <div class="project-card" data-category="ui">
+        <div class="img-wrapper">
+          <img src="portfolio-image/SLoW.png" alt="Restaurant WhatsApp Website"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-bowl-hot'></i><span>FOOD WEBSITE</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span><span class="tag">WhatsApp API</span><span class="tag">Live Map</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Restaurant Website & WhatsApp Ordering</h3>
+          <p>A premium restaurant site where customers can browse the menu and place orders directly via WhatsApp — no app needed.
+            <span class="more-text"> Features a live map for easy navigation to the restaurant, a fully styled menu page, and a one-click WhatsApp ordering button that pre-fills the customer's order as a message. Fast, simple, and perfect for small restaurants wanting a smart digital presence without a complex backend.</span>
+          </p>
+          <div class="card-footer">
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/chop-first-web/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6: Restaurant Booking — ui ✅ -->
+      <div class="project-card" data-category="ui">
+        <div class="img-wrapper">
+          <img src="portfolio-image/centro-lagos.png" alt="Restaurant Booking Website"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-dish'></i><span>FOOD WEBSITE</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span><span class="tag">Reservations</span><span class="tag">Live Map</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Restaurant Booking & Menu Website</h3>
+          <p>A sleek restaurant website with a full menu, table reservation system, and an interactive location map.
+            <span class="more-text"> Guests can browse the menu by category, book a table directly from the site with a smooth reservation form, and find the restaurant instantly using the embedded live map. Built with a premium look and feel — clean typography, elegant layouts, and subtle animations that make the dining experience start before guests even walk through the door.</span>
+          </p>
+          <div class="card-footer">
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/cilantro-lagos-web/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 7: Corporate Business — web ✅ -->
+      <div class="project-card" data-category="web">
+        <div class="img-wrapper">
+          <img src="portfolio-image/business-site.png" alt="Corporate Business Website"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-buildings'></i><span>BUSINESS WEBSITE</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Responsive</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Corporate Company Profile Website</h3>
+          <p>A professional corporate website built to establish credibility and convert visitors into clients.
+            <span class="more-text"> Features a polished services section that clearly communicates what the company offers, a testimonials section showcasing real client feedback to build trust, and a fully functional contact form for seamless lead generation. Designed with a clean, structured layout, strong typography, and a sharp color scheme that reflects a serious and trustworthy brand identity — built to make any business look world-class online.</span>
+          </p>
+          <div class="card-footer">
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/Modern-Business-Website-with-Dark-Theme--Smart-Chatbot/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 8: Lead Form — web ✅ -->
+      <div class="project-card" data-category="web">
+        <div class="img-wrapper">
+          <img src="portfolio-image/lead-form.png" alt="Lead Generation Website"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">
+            <i class='bx bx-user-plus'></i><span>LEAD FORM</span>
+          </div>
+          <div class="img-overlay">
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Lead Gen</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Lead Generation Landing Page</h3>
+          <p>A high-converting lead capture page designed to turn website visitors into qualified leads instantly.
+            <span class="more-text"> Features a clean sign-up form collecting name, email, and phone number — with real-time validation, a smooth success confirmation screen, and a built-in AI chatbot assistant ready to engage visitors. Crafted with a bold hero section, strong CTAs, and trust signals that push hesitant visitors to take action. Built for businesses that want results from day one.</span>
+          </p>
+          <div class="card-footer">
+            <button class="read-more"><span>Read More</span> <i class='bx bx-chevron-down'></i></button>
+            <a href="https://bigteslaboy3-creator.github.io/lead-form-website/" target="_blank" class="visit-btn"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
       </div>
 
     </div>
   </main>
-         <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" target="_blank" 
-     style="position:fixed; bottom:30px; left:30px; width:60px; height:60px; background:var(--primary); color:white; border-radius:50%; display:grid; place-items:center; font-size:2rem; box-shadow: 0 5px 20px rgba(99, 102, 241, 0.5); z-index:999; animation: bounce 2s infinite;">
+
+  <a href="https://bigteslaboy3-creator.github.io/my-ai-chat_bot/" target="_blank" class="chatbot-btn">
     <i class='bx bx-bot'></i>
   </a>
+
   <footer>
     <p>&copy; 2026 Bigboy Chuks. Crafted with <i class='bx bxs-heart' style="color:red"></i> and Code.</p>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      /* --- THEME TOGGLE (Synced with Index) --- */
-      const themeBtn = document.getElementById('themeToggle');
-      const icon = themeBtn.querySelector('i');
-      const root = document.documentElement;
-      
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        root.setAttribute('data-theme', 'light');
-        icon.className = 'bx bx-sun';
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const themeBtn = document.getElementById('themeToggle');
+    const icon = themeBtn.querySelector('i');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') { root.setAttribute('data-theme','light'); icon.className='bx bx-sun'; }
+    themeBtn.addEventListener('click', () => {
+      if (root.getAttribute('data-theme') === 'light') {
+        root.removeAttribute('data-theme'); icon.className='bx bx-moon'; localStorage.setItem('theme','dark');
+      } else {
+        root.setAttribute('data-theme','light'); icon.className='bx bx-sun'; localStorage.setItem('theme','light');
       }
+    });
 
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = root.getAttribute('data-theme');
-        if (currentTheme === 'light') {
-          root.removeAttribute('data-theme');
-          icon.className = 'bx bx-moon';
-          localStorage.setItem('theme', 'dark');
-        } else {
-          root.setAttribute('data-theme', 'light');
-          icon.className = 'bx bx-sun';
-          localStorage.setItem('theme', 'light');
+    const menuIcon = document.getElementById('menu-icon');
+    const navbar   = document.getElementById('navbar');
+    menuIcon.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      menuIcon.classList.toggle('bx-x');
+    });
+
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+      revealOnScroll();
+    });
+
+    const cursorGlow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top  = e.clientY + 'px';
+    });
+
+    const canvas = document.getElementById('particle-canvas');
+    const ctx    = canvas.getContext('2d');
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 2 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+        this.alpha = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+      }
+      draw() {
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(99,102,241,${this.alpha})`; ctx.fill();
+      }
+    }
+    for (let i = 0; i < 55; i++) particles.push(new Particle());
+    function drawLines() {
+      for (let i = 0; i < particles.length; i++) for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(99,102,241,${0.08*(1-dist/120)})`; ctx.lineWidth = 0.6; ctx.stroke();
         }
-      });
+      }
+    }
+    (function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); drawLines(); requestAnimationFrame(animate); })();
 
-      /* --- MOBILE MENU --- */
-      const menuIcon = document.getElementById('menu-icon');
-      const navbar = document.getElementById('navbar');
-
-      menuIcon.addEventListener('click', () => {
-        navbar.classList.toggle('open');
-        menuIcon.classList.toggle('bx-x');
-      });
-
-      /* --- READ MORE LOGIC --- */
-      document.querySelectorAll('.read-more').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const textContainer = e.target.parentElement.previousElementSibling;
-          const moreText = textContainer.querySelector('.more-text');
-          moreText.classList.toggle('show');
-          e.target.textContent = moreText.classList.contains('show') ? "Read Less" : "Read More";
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.project-card');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.getAttribute('data-filter');
+        cards.forEach((card, i) => {
+          const cat = card.getAttribute('data-category');
+          const show = filter === 'all' || cat === filter;
+          if (show) {
+            card.classList.remove('hidden');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(25px)';
+            setTimeout(() => {
+              card.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s cubic-bezier(.22,.68,0,1.2) ${i * 0.07}s`;
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 20);
+          } else {
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            setTimeout(() => card.classList.add('hidden'), 310);
+          }
         });
       });
-
-      /* --- SCROLL REVEAL --- */
-      function revealOnScroll() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-          var windowHeight = window.innerHeight;
-          var elementTop = reveals[i].getBoundingClientRect().top;
-          var elementVisible = 100;
-          if (elementTop < windowHeight - elementVisible) {
-            reveals[i].classList.add("active");
-          }
-        }
-      }
-      window.addEventListener("scroll", revealOnScroll);
-      revealOnScroll(); // Trigger on load
     });
+
+    document.querySelectorAll('.read-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.closest('.card-content').querySelector('p');
+        const moreText = p.querySelector('.more-text');
+        const label    = btn.querySelector('span');
+        const chevron  = btn.querySelector('i');
+        moreText.classList.toggle('show');
+        const isOpen = moreText.classList.contains('show');
+        label.textContent = isOpen ? 'Read Less' : 'Read More';
+        chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+      });
+    });
+
+    function revealOnScroll() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+      });
+      const grid = document.getElementById('portfolioGrid');
+      if (grid && grid.getBoundingClientRect().top < window.innerHeight - 80) grid.classList.add('active');
+    }
+    revealOnScroll();
+  });
   </script>
 </body>
-
 </html>
